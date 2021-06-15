@@ -1,0 +1,22 @@
+# StSound Library Makefile for PSP
+
+CC                = psp-gcc 
+CXX			= psp-g++
+CFLAGS  = -O2 -I. -I./LZH -I/usr/local/pspdev/psp/sdk/include -g -D_WIN32
+CXXFLAGS  = -O2 -I. -I./LZH -I/usr/local/pspdev/psp/sdk/include -g -D_WIN32
+
+Lib_file          = stsound.a
+
+LibObjs        = Depacker.o digidrum.o Ym2149Ex.o Ymload.o YmMusic.o YmUserInterface.o LZH\LZHXLIB.o
+
+.C.o:
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+all: $(Lib_file)
+
+$(Lib_file): $(LibObjs)
+	ar r $(Lib_file) $(LibObjs)
+
+clean:
+	rm -f *.o
+	rm -f $(Lib_file)

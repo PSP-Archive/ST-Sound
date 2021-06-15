@@ -1,0 +1,29 @@
+OBJS = stympsp.o
+MMLIBDIR = ./StSoundLibrary
+INCLUDEDIR = ./StSoundLibrary
+
+CFLAGS = -O2 -G0 -Wall -I$(INCLUDEDIR) -D_WIN32
+
+TARGET = stympsp
+#USE_NEWLIB_LIBC = 1
+
+LIBS = $(MMLIBDIR)/stsound.a -lpspaudiolib -lpspaudio -lstdc++ -lpspglue -lpsplibc -lc
+
+CXXFLAGS = $(CFLAGS) -fno-exceptions -fno-rtti
+ASFLAGS = $(CFLAGS)
+
+INCDIR = 
+LIBDIR =
+LDFLAGS =
+
+EXTRA_TARGETS = EBOOT.PBP
+PSP_EBOOT_TITLE = STSOUND YM Player v1.1
+
+PSPSDK=$(shell psp-config --pspsdk-path)
+include $(PSPSDK)/lib/build.mak
+
+clean:
+	rm -f *.o
+	rm -f *.elf
+	rm -f *.SFO
+	rm -f *.PBP
